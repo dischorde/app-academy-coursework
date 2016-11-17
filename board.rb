@@ -35,8 +35,16 @@ class Board
 
   def reveal_applicable(tile)
     tile.reveal
+
     neighbors = find_neighbors(tile)
-    neighbors.each { |el| reveal_applicable(el) unless el.revealed || el.is_bomb }
+    tile.fringe_val = neighbors.count(&:is_bomb)
+
+    if tile.fringe_val == 0
+      neighbors.each do |el|
+        reveal_applicable(el) unless el.revealed || el.is_bomb
+      end
+    end
+
   end
 
   def find_neighbors
