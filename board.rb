@@ -8,6 +8,8 @@ class Board
   end
 
   def won?
+    not_bombs = @grid.flatten.reject(&:is_bomb)
+    not_bombs.all?(&:revealed)
   end
 
   def render
@@ -29,6 +31,15 @@ class Board
     @grid.each do |row|
       row.map { tiles.pop }
     end
+  end
+
+  def reveal_applicable(tile)
+    tile.reveal
+    neighbors = find_neighbors(tile)
+    neighbors.each { |el| reveal_applicable(el) unless el.revealed || el.is_bomb }
+  end
+
+  def find_neighbors
   end
 
   def size
