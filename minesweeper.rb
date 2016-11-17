@@ -17,6 +17,7 @@ class MinesweeperGame
   end
 
   def game_over?
+    @current_tile.is_bomb || @board.won?
   end
 
   def get_input
@@ -24,9 +25,13 @@ class MinesweeperGame
   end
 
   def display_end_condition
+    puts board.won? ? "You win!" : "You lose :("
   end
 
   def check_tile
+    @current_tile.reveal
+    @board.render
+    sleep(2)
   end
 
 end

@@ -7,6 +7,9 @@ class Board
     populate
   end
 
+  def won?
+  end
+
   def render
     puts "   #{(0...size).to_a.map.join(' ')}"
     @grid.each.with_index do |row, idx|
