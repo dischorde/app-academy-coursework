@@ -15,7 +15,6 @@ class MinesweeperGame
       operation, @current_tile = get_input
 
       @current_tile.flag if operation == "f"
-      #byebug
       check_tile if operation == "r"
     end
     display_end_condition
@@ -23,7 +22,7 @@ class MinesweeperGame
 
   def game_over?
     return false if @current_tile.nil?
-    @current_tile.is_bomb || @board.won?
+    (@current_tile.is_bomb && @current_tile.revealed) || @board.won?
   end
 
   def get_input
@@ -58,6 +57,6 @@ class MinesweeperGame
 end
 
 if __FILE__ == $PROGRAM_NAME
-  game = MinesweeperGame.new(2)
+  game = MinesweeperGame.new
   game.run
 end
