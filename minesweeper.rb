@@ -21,7 +21,16 @@ class MinesweeperGame
   end
 
   def get_input
-    #RETURN OPERATION STRING AND TITLE OBJECT IN AN ARRAY
+    puts "Enter an operation followed by a postion"
+    puts "f = flag, r = reveal"
+    puts "For example: f,2,5"
+    parse_input(gets.chomp)
+  end
+
+  def parse_input(input)
+    arr = input.split(',').map { |el| el =~ /\d/ ? el.to_i : el }
+    op = arr.shift
+    [op, arr]
   end
 
   def display_end_condition
