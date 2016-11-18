@@ -19,6 +19,16 @@ class Board
     end
   end
 
+  def [](pos)
+    row, col = pos
+    @grid[row][col]
+  end
+
+  def []=(pos, val)
+    row, col = pos
+    @grid[row][col] = val
+  end
+
   def populate
     tiles = []
     total_tiles = size**2
@@ -28,8 +38,12 @@ class Board
 
     tiles.shuffle!
 
-    @grid.each do |row|
-      row.map { tiles.pop }
+    @grid.each_with_index do |row, j|
+      row.each_index do |k|
+        tile = tiles.pop
+        self[j, k] = tile
+        tile.pos = [j, k]
+      end
     end
   end
 
@@ -47,7 +61,8 @@ class Board
 
   end
 
-  def find_neighbors
+  def find_neighbors(tile)
+    
   end
 
   def size

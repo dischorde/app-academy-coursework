@@ -1,12 +1,13 @@
 class Tile
   attr_reader :is_bomb, :revealed
-  attr_accessor :fringe_val
+  attr_accessor :fringe_val, :pos
 
   def initialize(is_bomb = false)
     @is_bomb = is_bomb
     @flagged = false
     @revealed = false
     @fringe_val = 0
+    @pos = nil
   end
 
   def reveal
