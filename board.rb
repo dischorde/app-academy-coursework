@@ -13,7 +13,7 @@ class Board
   end
 
   def render
-    puts "   #{(0...size).to_a.map.join(' ')}"
+    puts "  #{(0...size).to_a.join(' ')}"
     @grid.each.with_index do |row, idx|
       puts "#{idx} #{row.map(&:to_s).join(' ')}"
     end
@@ -41,7 +41,7 @@ class Board
     @grid.each_with_index do |row, j|
       row.each_index do |k|
         tile = tiles.pop
-        self[j, k] = tile
+        self[[j, k]] = tile
         tile.pos = [j, k]
       end
     end

@@ -9,14 +9,17 @@ class MinesweeperGame
 
   def run
     until game_over?
+      system("clear")
       @board.render
       operation, @current_tile = get_input
       check_tile if operation == "r"
+      @current_tile.flag if operation == "f"
     end
     display_end_condition
   end
 
   def game_over?
+    return false if @current_tile.nil?
     @current_tile.is_bomb || @board.won?
   end
 
@@ -30,17 +33,22 @@ class MinesweeperGame
   def parse_input(input)
     arr = input.split(',').map { |el| el =~ /\d/ ? el.to_i : el }
     op = arr.shift
-    [op, arr]
+    [op, @board[arr]]
   end
 
   def display_end_condition
-    puts board.won? ? "You win!" : "You lose :("
+    system("clear")
+    @board.render
+    puts @board.won? ? "You win!" : "You lose :("
   end
 
   def check_tile
     @current_tile.reveal
-    @board.render
-    sleep(2)
   end
 
+end
+
+if __FILE__ == $PROGRAM_NAME
+  game = MinesweeperGame.new
+  game.run
 end
