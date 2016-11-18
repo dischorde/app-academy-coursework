@@ -62,7 +62,7 @@ class Board
   end
 
   def find_neighbors(tile)
-    
+    @grid.flatten.select { |other_tile| tile.is_neighbor?(other_tile) }
   end
 
   def size

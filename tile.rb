@@ -25,4 +25,14 @@ class Tile
     @flagged = !@flagged
   end
 
+  def neighbors
+    x, y = @pos
+    [[x - 1, y - 1], [x - 1, y], [x - 1, y + 1], [x, y + 1],
+     [x + 1, y + 1], [x + 1, y], [x + 1, y - 1], [x, y - 1]]
+  end
+
+  def is_neighbor?(tile)
+    neighbors.include?(tile.pos)
+  end
+
 end
