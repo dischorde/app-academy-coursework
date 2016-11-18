@@ -1,4 +1,5 @@
 require_relative 'board.rb'
+require 'byebug'
 
 class MinesweeperGame
 
@@ -12,8 +13,10 @@ class MinesweeperGame
       system("clear")
       @board.render
       operation, @current_tile = get_input
-      check_tile if operation == "r"
+
       @current_tile.flag if operation == "f"
+      #byebug
+      check_tile if operation == "r"
     end
     display_end_condition
   end
@@ -25,14 +28,20 @@ class MinesweeperGame
 
   def get_input
     puts "Enter an operation followed by a postion"
-    puts "f = flag, r = reveal"
+    puts "f = flag/unflag, r = reveal"
     puts "For example: f,2,5"
-    parse_input(gets.chomp)
+    begin
+      parse_input(gets.chomp)
+    rescue
+      puts "Invalid input, try again!"
+      retry
+    end
   end
 
   def parse_input(input)
     arr = input.split(',').map { |el| el =~ /\d/ ? el.to_i : el }
     op = arr.shift
+    raise if @board[arr].flagged && op == "r"
     [op, @board[arr]]
   end
 
@@ -49,6 +58,6 @@ class MinesweeperGame
 end
 
 if __FILE__ == $PROGRAM_NAME
-  game = MinesweeperGame.new
+  game = MinesweeperGame.new(2)
   game.run
 end

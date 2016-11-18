@@ -1,5 +1,5 @@
 class Tile
-  attr_reader :is_bomb, :revealed
+  attr_reader :is_bomb, :revealed, :flagged
   attr_accessor :fringe_val, :pos
 
   def initialize(is_bomb = false)
@@ -15,8 +15,8 @@ class Tile
   end
 
   def to_s
-    return "#" unless @revealed
     return "F" if @flagged
+    return "#" unless @revealed
     return "@" if @is_bomb
     @fringe_val == 0 ? "_" : @fringe_val.to_s
   end
