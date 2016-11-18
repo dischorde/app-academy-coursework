@@ -43,7 +43,7 @@ class MinesweeperGame
   end
 
   def check_tile
-    @current_tile.reveal
+    @board.reveal_applicable(@current_tile)
   end
 
 end

@@ -1,4 +1,5 @@
 require_relative 'tile.rb'
+require 'byebug'
 
 class Board
 
@@ -32,7 +33,7 @@ class Board
   def populate
     tiles = []
     total_tiles = size**2
-    num_bombs = total_tiles / 5
+    num_bombs = total_tiles / 6
     num_bombs.times { tiles << Tile.new(true) }
     (total_tiles - num_bombs).times { tiles << Tile.new(false) }
 
@@ -49,10 +50,11 @@ class Board
 
   def reveal_applicable(tile)
     tile.reveal
+    return if tile.is_bomb
 
     neighbors = find_neighbors(tile)
     tile.fringe_val = neighbors.count(&:is_bomb)
-
+    #byebug
     if tile.fringe_val == 0
       neighbors.each do |el|
         reveal_applicable(el) unless el.revealed || el.is_bomb
