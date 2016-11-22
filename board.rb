@@ -32,6 +32,11 @@ class Board
     @grid[row][col] = val
   end
 
+  def in_bounds?(pos)
+    row, col = pos
+    row.between?(0, 7) && col.between?(0, 7)
+  end
+
   def move_piece(start_pos, end_pos)
     current_piece = self[start_pos]
     raise "No piece to move." if current_piece.nil? #current_piece.is_a? NullPiece current
