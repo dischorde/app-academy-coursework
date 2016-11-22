@@ -1,4 +1,4 @@
-require 'byebug'
+
 module SteppingPiece
   KNIGHT_DELTAS = [ [1, 2],
                     [2, 1],
