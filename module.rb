@@ -73,7 +73,37 @@ module SlidingPiece
         all_row_col_moves << [new_x, new_y]
       end
     end
-    all_row_col_moves
+    sanitize_moves(all_row_col_moves)
+  end
+
+  def sanitize_moves(all_moves)
+    dir1 = all_moves[0...7]
+    dir2 = all_moves[7...14]
+    dir3 = all_moves[14...22]
+    dir4 = all_moves[14..28]
+
+    sanitized_moves = []
+    [dir1, dir2, dir3, dir4].each do |direction|
+      sanitized_moves += sanitize_direction(direction)
+    end
+    sanitized_moves
+  end
+
+  def sanitize_direction(moves)
+    sanitized_moves = []
+    moves.each_with_index do |pos, idx|
+      break unless pos[0].between(0, 7) && pos[1].between(0, 7)
+      next_pos = moves[idx]
+      if board[next_pos].is_a? NullPiece
+        sanitized_moves << pos
+      elsif board[next_pos].color == color
+        break
+      else
+        sanitized_moves << pos
+        break
+      end
+    end
+    sanitized_moves
   end
 
 end
