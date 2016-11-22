@@ -1,27 +1,39 @@
 require 'byebug'
 module SteppingPiece
-KNIGHT_DELTAS = [[1,2],
-                [2,1],
-                [2,-1],
-                [1,-2],
-                [-1,-2],
-                [-2,-1],
-                [-2,1],
-                [-1,2]]
-KINGS_DELTAS = [[1,0],
-                [1,1],
-                [0,1],
-                [-1,1],
-                [-1,0],
-                [-1,-1],
-                [0,-1],
-                [1,-1]]
+  KNIGHT_DELTAS = [ [1, 2],
+                    [2, 1],
+                    [2, -1],
+                    [1, -2],
+                    [-1, -2],
+                    [-2, -1],
+                    [-2, 1],
+                    [-1, 2]]
+  KINGS_DELTAS = [  [1, 0],
+                    [1, 1],
+                    [0, 1],
+                    [-1, 1],
+                    [-1, 0],
+                    [-1, -1],
+                    [0, -1],
+                    [1, -1]]
 
-def moves
-  deltas = self.is_a?(King) ? KINGS_DELTAS : KNIGHT_DELTAS
-  deltas.map { |delta| [delta[0] + position[0], delta[1] + position[1]] }
+  def moves
+    deltas = self.is_a?(King) ? KINGS_DELTAS : KNIGHT_DELTAS
+    all_moves = deltas.map { |delta| [delta[0] + position[0], delta[1] + position[1]] }
+    all_moves.select { |pos| valid_move?(pos) }
+  end
+
+  def valid_move?(pos)
+    return false unless pos[0].between(0,7) && pos[1].between(0,7)
+    if board[pos].is_a? NullPiece || board[pos].color != color
+      true
+    else
+      false
+    end
+  end
+
 end
-end
+
 module SlidingPiece
   DIAG_DELTAS = [ [1,1],
                 [-1,1],
