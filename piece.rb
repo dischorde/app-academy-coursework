@@ -1,4 +1,6 @@
 class Piece
+  attr_reader :color, :symbol, :position, :board
+
   def initialize(color, symbol, position, board)
     @color = color
     @symbol = symbol
@@ -24,18 +26,28 @@ class Rook < Piece
     super(color, :R, position, board)
   end
 
-  
+  def move_dirs
+    [:H]
+  end
 end
 
 class Bishop < Piece
   def initialize(color, position, board)
     super(color, :B, position, board)
   end
+
+  def move_dirs
+    [:X]
+  end
 end
 
 class Queen < Piece
   def initialize(color, position, board)
     super(color, :Q, position, board)
+  end
+
+  def move_dirs
+    [:X, :H]
   end
 end
 
