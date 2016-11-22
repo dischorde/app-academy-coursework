@@ -23,6 +23,8 @@ class Rook < Piece
   def initialize(color, position, board)
     super(color, :R, position, board)
   end
+
+  
 end
 
 class Bishop < Piece
