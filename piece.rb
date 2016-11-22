@@ -18,3 +18,39 @@ class NullPiece < Piece
     @board = nil
   end
 end
+
+class Rook < Piece
+  def initialize(color, position, board)
+    super(color, :R, position, board)
+  end
+end
+
+class Bishop < Piece
+  def initialize(color, position, board)
+    super(color, :B, position, board)
+  end
+end
+
+class Queen < Piece
+  def initialize(color, position, board)
+    super(color, :Q, position, board)
+  end
+end
+
+class Knight < Piece
+  def initialize(color, position, board)
+    super(color, :N, position, board)
+  end
+end
+
+class King < Piece
+  def initialize(color, position, board)
+    super(color, :K, position, board)
+  end
+end
+
+class Pawm < Piece
+  def initialize(color, position, board)
+    super(color, :P, position, board)
+  end
+end
