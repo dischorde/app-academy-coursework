@@ -38,8 +38,8 @@ describe TowersOfHanoi do
     end
 
     it "raises an error if moving disk is greater than ending tower's top disk" do
-      towers.second = [2]
-      towers.third = [1]
+      towers.third << towers.first.pop
+      towers.second << towers.first.pop
       expect { towers.make_move(towers.second, towers.third) }.to raise_error("Invalid move!")
     end
   end
@@ -47,28 +47,25 @@ describe TowersOfHanoi do
 
   describe "#won?" do
 
+
     it "returns true if second or third tower has all the disks in proper order" do
-      towers.first = []
-      towers.second = [3, 2, 1]
+
+      3.times { towers.second << towers.first.shift }
       expect(towers.won?).to be true
-      towers.second = []
-      towers.third = [3, 2, 1]
+      3.times { towers.third << towers.second.shift }
       expect(towers.won?).to be true
     end
 
     it "returns false if second or third tower has all the disks in incorrect order" do
-      towers.first = []
-      towers.second = [2, 3, 1]
+      3.times { towers.second << towers.first.pop }
       expect(towers.won?).to be false
-      towers.second = []
-      towers.third = [2, 3, 1]
+      3.times { towers.third << towers.second.shift }
       expect(towers.won?).to be false
     end
 
     it "returns false if game is in process" do
-      towers.first = [3]
-      towers.second = [2]
-      towers.third = [1]
+      towers.second << towers.first.shift
+      towers.third << towers.first.shift
       expect(towers.won?).to be false
     end
   end

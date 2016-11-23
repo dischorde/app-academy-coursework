@@ -1,5 +1,5 @@
 class TowersOfHanoi
-  attr_accessor :first, :second, :third
+  attr_reader :first, :second, :third
 
   def initialize(size = 5)
     @size = size
