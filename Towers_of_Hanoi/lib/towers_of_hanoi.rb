@@ -20,4 +20,25 @@ class TowersOfHanoi
     @second == @size.downto(1).to_a || @third == @size.downto(1).to_a
   end
 
+  def get_input(position)
+    puts "Select #{position} tower. 1, 2, or 3"
+    tower = gets.chomp
+    case tower
+    when "1"
+      @first
+    when "2"
+      @second
+    when "3"
+      @third
+    else
+      raise "Invalid move!"
+    end
+  end
+
+  def render
+    puts "First tower:  #{@first.join(' ')}"
+    puts "Second tower: #{@second.join(' ')}"
+    puts "Third tower:  #{@first.join(' ')}"
+  end
+
 end
