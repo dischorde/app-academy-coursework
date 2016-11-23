@@ -24,7 +24,7 @@ module SteppingPiece
   end
 
   def valid_move?(pos)
-    return false unless pos[0].between(0,7) && pos[1].between(0,7)
+    return false unless pos[0].between?(0,7) && pos[1].between?(0,7)
     if board[pos].is_a? NullPiece || board[pos].color != color
       true
     else
@@ -92,7 +92,7 @@ module SlidingPiece
   def sanitize_direction(moves)
     sanitized_moves = []
     moves.each_with_index do |pos, idx|
-      break unless pos[0].between(0, 7) && pos[1].between(0, 7)
+      break unless pos[0].between?(0, 7) && pos[1].between?(0, 7)
       next_pos = moves[idx]
       if board[next_pos].is_a? NullPiece
         sanitized_moves << pos

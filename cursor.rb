@@ -77,7 +77,6 @@ class Cursor
   end
 
   def handle_key(key)
-    # debugger
     case key
 
     when :ctrl_c

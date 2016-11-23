@@ -27,10 +27,29 @@ class Display
   end
 
   def move_cur
+    move_from = nil
+    move_to = nil
     loop do
       render
-      @cursor.get_input
+      pos = @cursor.get_input
+      if move_from.nil?
+        move_from = pos
+      else
+        move_to = pos
+      end
+
+      if move_to
+        @board.move_piece(move_from, move_to)
+        move_from, move_to = nil, nil
+      end
+
     end
   end
 
+end
+
+if __FILE__ == $PROGRAM_NAME
+board = Board.new
+a = Display.new(board)
+a.move_cur
 end
