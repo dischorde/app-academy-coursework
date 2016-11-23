@@ -1,4 +1,6 @@
 
+require 'byebug'
+
 module SteppingPiece
   KNIGHT_DELTAS = [ [1, 2],
                     [2, 1],
@@ -61,7 +63,7 @@ module SlidingPiece
         all_diags << [new_x, new_y]
       end
     end
-    all_diags
+    sanitize_moves(all_diags)
   end
 
   def row_col_moves
@@ -93,11 +95,10 @@ module SlidingPiece
     sanitized_moves = []
     moves.each_with_index do |pos, idx|
       break unless pos[0].between?(0, 7) && pos[1].between?(0, 7)
-      next_pos = moves[idx]
-      if board[next_pos].is_a? NullPiece
-        sanitized_moves << pos
-      elsif board[next_pos].color == color
+      if board[pos].color == color
         break
+      elsif board[pos].is_a? NullPiece
+          sanitized_moves << pos
       else
         sanitized_moves << pos
         break

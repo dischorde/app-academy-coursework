@@ -75,6 +75,7 @@ class Board
     raise "No piece to move." if current_piece.is_a? NullPiece
     raise "Piece cannot move there." unless current_piece.moves.include?(end_pos)
     self[end_pos] = current_piece
+    current_piece.position = end_pos
     self[start_pos] = NullPiece.instance
   end
 end
