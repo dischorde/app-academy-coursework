@@ -5,13 +5,15 @@ describe TowersOfHanoi do
   subject(:towers) { TowersOfHanoi.new(3) }
 
   describe "#initialize" do
-    it "initializes first tower with disks in descending order" do
-      expect(towers.first).to eq([3, 2, 1])
-    end
+    context "when a size is given" do
+      it "initializes first tower with disks in descending order" do
+        expect(towers.first).to eq([3, 2, 1])
+      end
 
-    it "initializes second and third towers as empty arrays" do
-      expect(towers.second).to be_empty
-      expect(towers.third).to be_empty
+      it "initializes second and third towers as empty arrays" do
+        expect(towers.second).to be_empty
+        expect(towers.third).to be_empty
+      end
     end
 
     context "when no size is given" do
@@ -24,32 +26,34 @@ describe TowersOfHanoi do
   end
 
   describe '#make_move' do
-    it "moves a disk from one tower to another tower" do
-      towers.make_move(towers.first, towers.second)
-      expect(towers.first).to eq([3, 2])
-      expect(towers.second).to eq([1])
-      towers.make_move(towers.second, towers.third)
-      expect(towers.second).to eq([])
-      expect(towers.third).to eq([1])
+    context "when valid input" do
+      it "moves a disk from one tower to another tower" do
+        towers.make_move(towers.first, towers.second)
+        expect(towers.first).to eq([3, 2])
+        expect(towers.second).to eq([1])
+
+        towers.make_move(towers.second, towers.third)
+        expect(towers.second).to eq([])
+        expect(towers.third).to eq([1])
+      end
     end
 
-    it "raises an error if starting tower is empty" do
-      expect { towers.make_move(towers.second, towers.third) }.to raise_error("Invalid move!")
-    end
+    context "when invalid input" do
+      it "raises an error if starting tower is empty" do
+        expect { towers.make_move(towers.second, towers.third) }.to raise_error("Invalid move!")
+      end
 
-    it "raises an error if moving disk is greater than ending tower's top disk" do
-      towers.third << towers.first.pop
-      towers.second << towers.first.pop
-      expect { towers.make_move(towers.second, towers.third) }.to raise_error("Invalid move!")
+      it "raises an error if moving disk is greater than ending tower's top disk" do
+        towers.third << towers.first.pop
+        towers.second << towers.first.pop
+        expect { towers.make_move(towers.second, towers.third) }.to raise_error("Invalid move!")
+      end
     end
   end
 
 
   describe "#won?" do
-
-
     it "returns true if second or third tower has all the disks in proper order" do
-
       3.times { towers.second << towers.first.shift }
       expect(towers.won?).to be true
       3.times { towers.third << towers.second.shift }
