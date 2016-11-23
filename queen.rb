@@ -11,6 +11,6 @@ class Queen < Piece
   end
 
   def to_s
-    "Q"
+    "Q".colorize(color)
   end
 end

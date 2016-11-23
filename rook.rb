@@ -11,6 +11,6 @@ class Rook < Piece
   end
 
   def to_s
-    "R"
+    "R".colorize(color)
   end
 end

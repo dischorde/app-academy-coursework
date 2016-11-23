@@ -7,6 +7,6 @@ class King < Piece
   end
 
   def to_s
-    "K"
+    "K".colorize(color)
   end
 end

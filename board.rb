@@ -29,7 +29,7 @@ class Board
   end
 
   def minions_assemble(row_num)
-    color = (row_num == 1 ? :black : :white)
+    color = (row_num == 1 ? :magenta : :green)
     8.times do |col|
       pos = [row_num, col]
       self[pos] = Pawn.new(color, pos, self)
@@ -37,7 +37,7 @@ class Board
   end
 
   def all_the_kings_men(row_num)
-    color = (row_num == 0 ? :black : :white)
+    color = (row_num == 0 ? :magenta : :green)
     8.times do |col|
       pos = [row_num, col]
       case col

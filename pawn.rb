@@ -6,6 +6,6 @@ class Pawn < Piece
   end
 
   def to_s
-    "P"
+    "P".colorize(color)
   end
 end

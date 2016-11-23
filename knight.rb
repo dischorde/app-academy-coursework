@@ -7,6 +7,6 @@ class Knight < Piece
   end
 
   def to_s
-    "N"
+    "N".colorize(color)
   end
 end

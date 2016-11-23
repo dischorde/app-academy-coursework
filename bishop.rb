@@ -11,6 +11,6 @@ class Bishop < Piece
   end
 
   def to_s
-    "B"
+    "B".colorize(color)
   end
 end
