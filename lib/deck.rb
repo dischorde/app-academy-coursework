@@ -22,5 +22,11 @@ class Deck
     @pile.shuffle!
   end
 
+  def deal(number)
+    dealt = []
+    number.times { dealt << @pile.pop }
+    dealt
+  end
+
 
 end

@@ -33,7 +33,7 @@ describe Deck do
     end
 
     it "has 4 cards for each value" do
-      hearts, clubs, diamonds, spades  = [], [], [], []
+      hearts, clubs, diamonds, spades = [], [], [], []
       deck.pile.each do |card|
         case card.suit
         when :hearts
@@ -61,4 +61,16 @@ describe Deck do
     end
   end
 
+  describe '#deal' do
+    it "removes the number of cards from the pile" do
+      deck.deal(3)
+      expect(deck.pile.length).to eq(49)
+    end
+
+    it "returns an array of the dealt cards" do
+      dealt = deck.deal(2)
+      expect(dealt.length).to eq(2)
+      expect(dealt).to be_an(Array)
+    end
+  end
 end
