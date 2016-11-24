@@ -16,3 +16,32 @@ def my_min2(arr)
   end
   min
 end
+
+def largest_contiguous_sub1(arr)
+  subs = []
+  arr.each_index do |idx1|
+    (idx1...arr.length).each do |idx2|
+      subs << arr[idx1..idx2]
+    end
+  end
+  subs.map { |array| array.inject(:+) }.max
+end
+
+def largest_contiguous_sub2(arr)
+  return arr.max if arr.all? { |el| el < 0 }
+  max_max = nil
+  cur_sum = 0
+  arr.each do |el|
+    if max_max.nil? && el > 0
+      max_max = el
+    end
+    cur_sum += el
+    if cur_sum > 0
+      max_max = cur_sum if cur_sum > max_max
+    else
+      cur_sum = 0
+    end
+  end
+  max_max
+
+end
