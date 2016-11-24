@@ -14,13 +14,43 @@ describe Deck do
 
   describe '#setup' do
     it "has 13 cards of each suit" do
-      hearts = deck.pile.count { |card| card.suit == :hearts }
-      clubs = deck.pile.count { |card| card.suit == :clubs }
-      diamonds = deck.pile.count { |card| card.suit == :diamonds }
-      spades = deck.pile.count { |card| card.suit == :spades }
-      counts = [spades, clubs, diamonds, hearts]
+      hearts, clubs, diamonds, spades = 0, 0, 0, 0
+      deck.pile.each do |card|
+        case card.suit
+        when :hearts
+          hearts += 1
+        when :clubs
+          clubs += 1
+        when :spades
+          spades += 1
+        when :diamonds
+          diamonds += 1
+        end
+      end
 
+      counts = [spades, clubs, diamonds, hearts]
       expect(counts.all? { |el| el == 13 }).to be true
+    end
+
+    it "has 4 cards for each value" do
+      hearts, clubs, diamonds, spades  = [], [], [], []
+      deck.pile.each do |card|
+        case card.suit
+        when :hearts
+          hearts << card.value
+        when :clubs
+          clubs << card.value
+        when :spades
+          spades << card.value
+        when :diamonds
+          diamonds << card.value
+        end
+      end
+
+      expect(hearts.sort).to eq((1..13).to_a)
+      expect(clubs.sort).to eq((1..13).to_a)
+      expect(diamonds.sort).to eq((1..13).to_a)
+      expect(spades.sort).to eq((1..13).to_a)
     end
   end
 
