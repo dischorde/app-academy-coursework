@@ -3,12 +3,7 @@ require_relative "card"
 class Deck
   attr_reader :pile
 
-  def initialize
-    @pile = setup
-    shuffle_deck
-  end
-
-  def setup
+  def self.default_pile
     cards = []
     Card::SUITS.each do |suit|
       Card::VALUES.each do |value|
@@ -16,6 +11,11 @@ class Deck
       end
     end
     cards
+  end
+
+  def initialize(pile = Deck::default_pile)
+    @pile = pile
+    shuffle_deck
   end
 
   def shuffle_deck

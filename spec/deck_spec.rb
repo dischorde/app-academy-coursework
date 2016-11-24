@@ -12,7 +12,7 @@ describe Deck do
 
   end
 
-  describe '#setup' do
+  describe '#default_pile' do
     it "has 13 cards of each suit" do
       hearts, clubs, diamonds, spades = 0, 0, 0, 0
       deck.pile.each do |card|
