@@ -8,3 +8,11 @@ def my_min1(arr)
     return el1 if is_smallest
   end
 end
+
+def my_min2(arr)
+  min = arr.first
+  arr.each do |el|
+    min = el if el < min
+  end
+  min
+end
