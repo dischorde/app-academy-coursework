@@ -66,6 +66,8 @@ class LinkedList
 
     new_link.next = @tail
     @tail.prev = new_link
+
+    new_link
   end
 
   def update(key, val)
