@@ -17,7 +17,7 @@ class StaticArray
     @store.length
   end
 
-  private
+
 
   def validate!(i)
     raise "Overflow error" unless i.between?(0, @store.length - 1)
@@ -33,9 +33,11 @@ class DynamicArray
   end
 
   def [](i)
+    @store[i]
   end
 
   def []=(i, val)
+    @store[i] = val
   end
 
   def capacity
@@ -46,21 +48,33 @@ class DynamicArray
   end
 
   def push(val)
+    resize! if @count == capacity
+    self[count] = val
+    @count += 1
+    val
   end
 
   def unshift(val)
+
   end
 
   def pop
+    return nil if count == 0
+    last_el = last
+    self[count - 1] = nil
+    @count -= 1
+    last_el
   end
 
   def shift
   end
 
   def first
+    @store[0]
   end
 
   def last
+    @store[count - 1]
   end
 
   def each
@@ -81,5 +95,12 @@ class DynamicArray
   private
 
   def resize!
+    new_store = StaticArray.new(capacity * 2)
+
+    @store.length.times do |idx|
+      new_store[idx] = @store[idx]
+    end
+
+    @store = new_store
   end
 end
