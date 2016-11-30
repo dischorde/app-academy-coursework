@@ -1,19 +1,9 @@
-class Reply
+class Reply < QuestionsBase
   attr_accessor :parent_id, :user_id, :question_id, :body
   attr_reader :id
 
-  def self.find_by_id(id)
-    data = QuestionsDatabase.instance.execute(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        replies
-      WHERE
-        id = ?
-    SQL
-
-    return nil if data.empty?
-    Reply.new(data.first)
+  def self.table
+    'replies'
   end
 
   def self.find_by_user_id(user_id)
@@ -85,31 +75,5 @@ class Reply
     return nil if data.empty?
     Reply.new(data.first)
   end
-
-  def save
-    @id ? update : create
-  end
-
-  def update
-    QuestionsDatabase.instance.execute(<<-SQL, @parent_id, @user_id, @body, @question_id, @id)
-      UPDATE
-        replies
-      SET
-        parent_id = ?, user_id = ?, body = ?, question_id = ?
-      WHERE
-        id = ?
-    SQL
-  end
-
-  def create
-    QuestionsDatabase.instance.execute(<<-SQL, @parent_id, @user_id, @body, @question_id)
-      INSERT INTO
-        replies (parent_id, user_id, body, question_id)
-      VALUES
-        (?, ?, ?, ?)
-    SQL
-    @id = QuestionsDatabase.instance.last_insert_row_id
-  end
-
 
 end

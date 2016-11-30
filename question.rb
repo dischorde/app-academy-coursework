@@ -1,18 +1,9 @@
-class Question
+class Question < QuestionsBase
   attr_accessor :title, :body, :user_id
   attr_reader :id
 
-  def self.find_by_id(id)
-    data = QuestionsDatabase.instance.execute(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        questions
-      WHERE
-        id = ?
-    SQL
-    return nil if data.empty?
-    Question.new(data.first)
+  def self.table
+    'questions'
   end
 
   def self.find_by_author_id(user_id)
@@ -63,28 +54,4 @@ class Question
     QuestionLike.num_likes_for_question_id(@id)
   end
 
-  def save
-    @id ? update : create
-  end
-
-  def update
-    QuestionsDatabase.instance.execute(<<-SQL, @title, @body, @user_id, @id)
-      UPDATE
-        questions
-      SET
-        title = ?, body = ?, user_id = ?
-      WHERE
-        id = ?
-    SQL
-  end
-
-  def create
-    QuestionsDatabase.instance.execute(<<-SQL, @title, @body, @user_id)
-      INSERT INTO
-        questions (title, body, user_id)
-      VALUES
-        (?, ?, ?)
-    SQL
-    @id = QuestionsDatabase.instance.last_insert_row_id
-  end
 end

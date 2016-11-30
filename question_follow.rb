@@ -1,19 +1,10 @@
 
-class QuestionFollow
+class QuestionFollow < QuestionsBase
   attr_accessor :question_id, :user_id
   attr_reader :id
 
-  def self.find_by_id(id)
-    data = QuestionsDatabase.instance.execute(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        question_follows
-      WHERE
-        id = ?
-    SQL
-    return nil if data.empty?
-    QuestionFollow.new(data.first)
+  def self.table
+    'question_follows'
   end
 
   def self.followers_for_question_id(question_id)
@@ -70,6 +61,4 @@ class QuestionFollow
     @user_id = options['user_id']
     @question_id = options['question_id']
   end
-
-
 end

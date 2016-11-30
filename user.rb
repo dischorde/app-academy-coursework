@@ -1,18 +1,9 @@
-class User
+class User < QuestionsBase
   attr_accessor :fname, :lname
   attr_reader :id
 
-  def self.find_by_id(id)
-    data = QuestionsDatabase.instance.execute(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        users
-      WHERE
-        id = ?
-    SQL
-    return nil if data.empty?
-    User.new(data.first)
+  def self.table
+    'users'
   end
 
   def self.find_by_name(fname, lname)
@@ -30,9 +21,9 @@ class User
   end
 
   def initialize(options)
-    @id = options['id']
     @fname = options['fname']
     @lname = options['lname']
+    @id = options['id']
   end
 
   def authored_questions
@@ -65,31 +56,6 @@ class User
       SQL
     return nil if data.empty?
     data.first["average_likes"]
-  end
-
-  def save
-    @id ? update : create
-  end
-
-  def update
-    QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname, @id)
-      UPDATE
-        users
-      SET
-        fname = ?, lname = ?
-      WHERE
-        id = ?
-    SQL
-  end
-
-  def create
-    QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname)
-      INSERT INTO
-        users (fname,lname)
-      VALUES
-        (?, ?)
-    SQL
-    @id = QuestionsDatabase.instance.last_insert_row_id
   end
 
 end

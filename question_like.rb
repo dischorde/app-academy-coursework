@@ -1,18 +1,9 @@
-class QuestionLike
+class QuestionLike < QuestionsBase
   attr_accessor :question_id, :user_id
   attr_reader :id
 
-  def self.find_by_id(id)
-    data = QuestionsDatabase.instance.execute(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        question_likes
-      WHERE
-        id = ?
-    SQL
-    return nil if data.empty?
-    QuestionLike.new(data.first)
+  def self.table
+    'question_likes'
   end
 
   def self.likers_for_question_id(question_id)
@@ -78,8 +69,6 @@ class QuestionLike
     return nil if data.empty?
     data.map { |datum| Question.new(datum) }
   end
-
-
 
   def initialize(options)
     @id = options['id']
