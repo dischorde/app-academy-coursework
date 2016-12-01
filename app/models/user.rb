@@ -20,4 +20,16 @@ class User < ActiveRecord::Base
     through: :visits,
     source: :url
 
+  def recent_submission_count
+    self.submitted_urls.where(["shortened_urls.updated_at > ?", 1.minutes.ago]).count
+  end
+
+  def submission_count
+    self.submitted_urls.count
+  end
+
+  def create_shortened_url(long_url)
+    ShortenedUrl.create_for_user_and_long_url!(self, long_url)
+  end
+
 end
