@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
   describe "GET #new" do
-    it "renders the new links page" do
+    it "renders the new user page" do
       get :new, link: {}
 
       expect(response).to render_template("new")
@@ -20,7 +20,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context "with valid params" do
-      it "redirects to the link show page" do
+      it "redirects to the user  show page" do
         post :create, user: {username: "test_user", password: "password"}
         expect(response).to redirect_to(user_url(User.last))
       end

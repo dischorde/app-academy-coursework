@@ -6,6 +6,8 @@ RSpec.describe User, type: :model do
   it { should validate_presence_of(:password_digest) }
   it { should validate_length_of(:password).is_at_least(6) }
 
+  it { should have_many(:goals) }
+
   it "creates a password digest" do
     User.create!(username: "test_user", password: "password")
     user = User.find_by_username("test_user")
