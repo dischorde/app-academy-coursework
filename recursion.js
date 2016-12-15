@@ -192,7 +192,7 @@ let right = this.slice(middle, this.length).mergeSort(cb);
 function merge(arr1, arr2, cb) {
   let merged = [];
   while(arr1.length > 0 && arr2.length > 0) {
-    switch (cb(arr1, arr2)){
+    switch (cb(arr1[0], arr2[0])){
       case -1:
         merged.push(arr1.shift());
         break;
