@@ -1,11 +1,10 @@
-
-const readline = require('readline');
-
-const reader = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
+//
+// const readline = require('readline');
+//
+// const reader = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout
+// });
 
 class Game {
   constructor (numOfDiscs) {
@@ -16,7 +15,8 @@ class Game {
     }
   }
 
-  promptMove (callBack) {
+  promptMove (reader, callBack) {
+    // console.log(reader);
     this.print();
     reader.question("Where do you want to move a disc from: ", (startTower) => {
       reader.question("Where do you want to move a disc to: ", (endTower) => {
@@ -60,18 +60,17 @@ class Game {
         (this.towers[0].length === 0 && this.towers[2].length === 0 ));
   }
 
-  run(completionCallback) {
+  run(reader, completionCallback) {
     if (this.isWon()) {
-      reader.close();
       completionCallback();
     }
     else {
-      this.promptMove((start, end) => {
+      this.promptMove(reader, (start, end) => {
         let result = this.move(start, end);
         if (!result) {
           console.log("I am an error message.");
         }
-        this.run(completionCallback);
+        this.run(reader, completionCallback);
       });
     }
   }
