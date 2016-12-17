@@ -95,6 +95,7 @@
 	  this.vel = options.vel;
 	  this.radius = options.radius;
 	  this.color = options.color;
+	  this.game = options.game;
 	}
 
 	MovingObject.prototype.draw = function(ctx) {
@@ -118,8 +119,9 @@
 	};
 
 	MovingObject.prototype.move = function() {
-	  this.pos[0] = this.pos[0] + this.vel[0];
-	  this.pos[1] = this.pos[1] + this.vel[1];
+	  let newX = this.pos[0] + this.vel[0];
+	  let newY = this.pos[1] + this.vel[1];
+	  this.pos = this.game.wrap([newX, newY]);  
 	};
 
 	window.MovingObject = MovingObject;
@@ -133,10 +135,10 @@
 	const Util = __webpack_require__(1);
 	const MovingObject = __webpack_require__(2);
 
-	function Asteroid(position) {
+	function Asteroid(position, game) {
 	  this.COLOR = "#42f4ad";
 	  this.RADIUS = 25;
-	  MovingObject.call(this, { pos: position, color: this.COLOR, radius: this.RADIUS, vel: Util.randomVec(4) });
+	  MovingObject.call(this, { pos: position, game: game, color: this.COLOR, radius: this.RADIUS, vel: Util.randomVec(4) });
 
 	}
 
@@ -165,7 +167,7 @@
 	Game.prototype.addAsteroids = function() {
 	  for(let i = 0; i < this.NUM_ASTEROIDS; i++) {
 	    let randPos = this.randomPosition();
-	    this.asteroids.push(new Asteroid(randPos));
+	    this.asteroids.push(new Asteroid(randPos, this));
 	  }
 	};
 
@@ -187,6 +189,24 @@
 	    asteroid.move();
 	  });
 	};
+
+	Game.prototype.wrap = function(pos) {
+	  let [x, y] = pos;
+	  if (x < 0) {
+	    x += this.DIM_X;
+	  }
+	  else if (x > this.DIM_X) {
+	    x -= this.DIM_X;
+	  }
+	  if (y < 0) {
+	    y += this.DIM_Y;
+	  }
+	  else if (y > this.DIM_Y) {
+	    y -= this.DIM_Y;
+	  }
+	  return [x, y];
+	};
+
 
 	window.Game = Game;
 	module.exports = Game;
