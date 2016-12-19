@@ -1,0 +1,49 @@
+ul, li {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+ul {
+  width:600px;
+  height:600px;
+  border: 5px solid black;
+  list-style-type: none;
+}
+
+li {
+  /*width:190px;
+  height:190px;*/
+  width:31.6666%;
+  height:31.6666%;
+  background: lightgrey;
+  float: left;
+  border: 5px solid black;
+}
+
+li:hover {
+  background: #ffd311;
+}
+
+.x {
+  background: lightgreen;
+}
+.x:hover {
+  background: lightgreen;
+}
+
+.o {
+  background: lightblue;
+}
+.o:hover {
+  background: lightblue;
+}
+
+
+
+.marked {
+  font-size: 160px;
+  text-align: center;
+  font-family: Helvetica;
+  display: block;
+}
