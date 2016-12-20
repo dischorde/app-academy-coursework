@@ -146,9 +146,9 @@
 	  setupTowers () {
 	    let $first = $("<ul id='first'>").data('value', 0);
 	    for (let i = 0; i < 3; i++) {
-	      console.log(i);
 	      let $li = $("<li>");
 	      let size = this.game.towers[0][i];
+	      $($li).addClass(`disk${size}`);
 	      $($li).data('val', size);
 	      $($li).css('width', `${(size) * 30}%`);
 	      $first.append($li);
@@ -166,7 +166,6 @@
 	  render() {
 	    if (this.toPile !== null) {
 	      if (this.game.move(this.fromPile.data('value'), this.toPile.data('value')) === true) {
-	        console.log(this.fromPile.data('value'));
 	        let $currListItem = $(':last-child', this.fromPile).detach();
 	        this.toPile.append($currListItem);
 	      }

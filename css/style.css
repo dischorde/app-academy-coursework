@@ -10,7 +10,7 @@ ul   {
   border-bottom: 8px black solid;
   flex: 1 33%;
   display: flex;
-  margin: 1%;
+  margin: 5%;
   list-style-type: none;
   padding: 0;
   height: 120px;
@@ -18,17 +18,32 @@ ul   {
   align-items: flex-end;
 }
 
+ul:hover {
+  border-bottom: 8px red solid;
+}
+
 figure {
   display: flex;
   width: 80%;
   justify-content: space-between;
-  margin: 10% 5% 5% 5%;
+  margin: 10%;
 }
 
 
 li {
   border-radius: 25px;
-  background: crimson;
   height: 40px;
   margin: 0 auto;
+}
+
+.disk1 {
+  background:yellow;
+}
+
+.disk2 {
+  background: #78cc17;
+}
+
+.disk3 {
+  background: aqua;
 }
