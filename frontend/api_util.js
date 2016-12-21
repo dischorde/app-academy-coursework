@@ -10,6 +10,16 @@ const APIUtil = {
       dataType: 'json',
       method
     });
+  },
+
+  searchUsers: (queryVal, success) => {
+    return $.ajax({
+      url:"/users/search",
+      data: {'query': queryVal},
+      dataType: 'json',
+      method: "GET",
+      success
+    });
   }
 };
 
