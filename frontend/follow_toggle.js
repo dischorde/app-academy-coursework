@@ -10,23 +10,33 @@ class FollowToggle{
   }
 
   render(){
+    this.$el.prop("disabled", false);
     let followed = (this.followState === 'followed' ? "Unfollow!" : "Follow!");
     this.$el.text(followed);
+
   }
 
   toggleFollow() {
     this.followState = (this.followState === 'followed' ? 'unfollowed' : 'followed');
   }
 
+  toggleButton(res){
+    this.toggleFollow();
+    this.render();
+  }
+
   handleClick() {
     this.$el.on('click', (e) => {
+      this.$el.prop("disabled", true);
       e.preventDefault();
       if (this.followState === 'followed') {
-        APIUtil.followUser(this.userId);
+        APIUtil.unfollowUser(this.userId).then(res => this.toggleButton(res));
       }
       else {
-        APIUtil.unfollowUser(this.userId);
+        APIUtil.followUser(this.userId).then(res => this.toggleButton(res));
       }
-    });}}
+    });
+  }
+}
 
 module.exports = FollowToggle;

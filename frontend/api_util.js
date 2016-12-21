@@ -1,24 +1,18 @@
 const APIUtil = {
-  followUser: id => {
-    $.ajax({
-      url: `${id}/follow`,
-      method: `POST`,
-      dataType: 'json',
-      }).then((res) => this.toggleButton(res));
-    },
 
-  unfollowUser: id => {
-    $.ajax({
-      url: `${id}/follow`,
-      method: `DELETE`,
-      dataType: 'json',
-    }).then((res) => this.toggleButton(res));
-    },
+  followUser: id => APIUtil.updateFollowing(id, 'POST'),
 
-  toggleButton(res){
-    this.toggleFollow();
-    this.render();
+  unfollowUser: id => APIUtil.updateFollowing(id, 'DELETE'),
+
+  updateFollowing: (id, method) => {
+    return $.ajax({
+      url:`/users/${id}/follow`,
+      dataType: 'json',
+      method
+    });
   }
-  };
+};
+
+
 
 module.exports = APIUtil;
