@@ -20,7 +20,17 @@ const APIUtil = {
       method: "GET",
       success
     });
+  },
+
+  createTweet: (data) => {
+    return $.ajax({
+      url: "/tweets",
+      data: data,
+      dataType: 'json',
+      method: "POST"
+    });
   }
+
 };
 
 
