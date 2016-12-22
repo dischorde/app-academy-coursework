@@ -29,6 +29,15 @@ const APIUtil = {
       dataType: 'json',
       method: "POST"
     });
+  },
+
+  fetchTweets: (data) => {
+    return $.ajax({
+      url:"/feed",
+      method:"GET",
+      data,
+      dataType: 'json'
+    });
   }
 
 };
