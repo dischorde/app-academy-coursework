@@ -17,11 +17,9 @@ class TodoForm extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    this.props.receiveTodo(this.makeTodo());
-    this.setState({
-      title: '',
-      body: ''
-    });
+    this.props.createTodo(this.makeTodo()).then(
+      () => this.setState({ title: "", body: "" })
+    );
   }
 
   updateInput(type) {
@@ -33,12 +31,16 @@ class TodoForm extends React.Component {
   }
 
   makeTodo() {
-    return {
-      id: uniqueId(),
-      title: this.state.title,
-      body: this.state.body,
-      done: false
+    let newTodo = {
+      todo: {
+        id: uniqueId(),
+        title: this.state.title,
+        body: this.state.body,
+        done: false
+      }
     };
+
+    return newTodo;
   }
 
   render() {
