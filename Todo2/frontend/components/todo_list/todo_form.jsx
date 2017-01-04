@@ -1,3 +1,4 @@
+
 import React from 'react';
 import uniqueId from '../../util/util.js';
 
@@ -31,7 +32,7 @@ class TodoForm extends React.Component {
   }
 
   makeTodo() {
-    let newTodo = {
+    return {
       todo: {
         id: uniqueId(),
         title: this.state.title,
@@ -39,12 +40,12 @@ class TodoForm extends React.Component {
         done: false
       }
     };
-
-    return newTodo;
   }
 
   render() {
     return (
+      <div>
+      {`${this.props.errors}`}
       <form onSubmit={this.handleSubmit}>
         <label>Title:{'   '}
           <input
@@ -68,6 +69,7 @@ class TodoForm extends React.Component {
 
         <button>Add Todo</button>
       </form>
+    </div>
     );
   }
 }

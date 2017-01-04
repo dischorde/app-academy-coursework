@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-let todos = Todo.create([
+Todo.create([
   {title: 'get a dog', body: 'we need to get a dog', done: false},
   {title: 'wash a dog', body: 'we need to wash a dog', done: false},
   {title: 'get a car', body: 'we needed to get a car', done: true},

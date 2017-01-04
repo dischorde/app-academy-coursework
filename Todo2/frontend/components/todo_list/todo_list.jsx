@@ -19,13 +19,13 @@ class TodoList extends React.Component {
             this.props.todos.map((todo, i) =>
             <TodoListItem
               key={i}
-              removeTodo={this.props.removeTodo}
-              receiveTodo={this.props.receiveTodo}
+              destroyTodo={this.props.destroyTodo}
+              updateTodo={this.props.updateTodo}
               todo={todo}
             />)
           }
         </ul>
-        <TodoForm createTodo={this.props.createTodo} />
+        <TodoForm createTodo={this.props.createTodo} errors={this.props.errors} />
       </div>
     );
   }

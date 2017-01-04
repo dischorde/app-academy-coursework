@@ -9,19 +9,19 @@ class TodoListItem extends React.Component {
 
   toggleTodo(e) {
     e.preventDefault();
-    const toggledTodo = merge(
+    const todo = merge(
       {},
       this.props.todo,
       { done: !this.props.todo.done }
     );
 
-     this.props.receiveTodo(toggledTodo);
+    this.props.updateTodo(todo);
   }
 
   render() {
     return (
       <li>{this.props.todo.title}{'   '}
-        <button onClick={this.props.removeTodo.bind(null, this.props.todo.id)}>
+        <button onClick={this.props.destroyTodo.bind(null, this.props.todo.id)}>
           Remove
         </button>{'   '}
         <button onClick={this.toggleTodo}>
