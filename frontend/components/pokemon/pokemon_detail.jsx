@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 class PokemonDetail extends React.Component {
   constructor(props) {
@@ -17,6 +18,14 @@ class PokemonDetail extends React.Component {
 
   render() {
     const {image_url, id, attack, defense, name, moves, items, poke_type} = this.props.pokemonDetail;
+    let itemLinks = (
+      items === undefined ? "" : items.map(item => (
+        <Link to={`/pokemon/${id}/item/${item.id}`} key={item.id}>
+          <img className="small" src={item.image_url}></img>
+        </Link>
+      ))
+    );
+
     return (
       <section>
         <img src={image_url}></img>
@@ -26,7 +35,9 @@ class PokemonDetail extends React.Component {
           <li key="attack">Attack: {attack}</li>
           <li key="defense">Defense: {defense}</li>
           <li key="moves">Moves: {moves === undefined ? "" : moves.join(", ")}</li>
+          <li key="items">{itemLinks}</li>
         </ul>
+        {this.props.children}
       </section>
     );
   }
