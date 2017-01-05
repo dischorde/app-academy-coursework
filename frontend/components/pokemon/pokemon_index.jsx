@@ -12,13 +12,24 @@ class PokemonIndex extends React.Component {
 
   render() {
     const { pokemon } = this.props;
-    const pokemonItems = pokemon.map(poke => <PokemonIndexItem id={poke.id} pokemon={poke} />);
+    const pokemonItems = pokemon.map(poke => (
+      <PokemonIndexItem key={poke.id}
+                        id={poke.id}
+                        pokemon={poke} />
+      )
+    );
+
     return (
-      <section className="pokedex">
-        <ul>
-           {pokemonItems}
-        </ul>
-      </section>
+      <div>
+        <section>
+          {this.props.children}
+        </section>
+        <section className="pokedex">
+          <ul>
+            {pokemonItems}
+          </ul>
+        </section>
+      </div>
     );
   }
 }
