@@ -6,7 +6,7 @@ class Api::PokemonController < ApplicationController
       render :show
     else
       render json: @pokemon.errors.full_messages
-    end 
+    end
   end
 
   def index
@@ -25,8 +25,8 @@ class Api::PokemonController < ApplicationController
       :attack,
       :defense,
       :poke_type,
-      :moves,
-      :image_url
+      :image_url,
+      moves:[]
     )
   end
 end
