@@ -1,5 +1,14 @@
 class Api::PokemonController < ApplicationController
 
+  def create
+    @pokemon = Pokemon.new(pokemon_params)
+    if @pokemon.save
+      render :show
+    else
+      render json: @pokemon.errors.full_messages
+    end
+  end
+
   def index
     @pokemon = Pokemon.all
   end
@@ -16,8 +25,8 @@ class Api::PokemonController < ApplicationController
       :attack,
       :defense,
       :poke_type,
-      :moves,
-      :image_url
+      :image_url,
+      moves:[]
     )
   end
 end
