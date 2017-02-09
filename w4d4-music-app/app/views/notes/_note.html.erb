@@ -1,0 +1,11 @@
+<% notes.each do |note| %>
+  <p style="font-style: italic">
+    <%= note.notes %>
+  </p>
+  <span style="font-variant: small-caps">authored by: <%= note.user.email %>
+  <% if note.user_id == current_user.id %>
+    <%= button_to "delete note", note_url(note), method: :delete %>
+  <% end %>
+  </span>
+  <br>
+<% end %>

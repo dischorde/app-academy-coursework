@@ -1,0 +1,41 @@
+<% action = (track.persisted? ? track_url(track) : tracks_url) %>
+<% method = (track.persisted? ? :patch : :post) %>
+<% album = (track.persisted? ? @track.album : find_current_album ) %>
+
+<form action="<%= action %>" method="post">
+  <input type="hidden" name="_method" value="<%= method %>">
+  <%= auth_token %>
+
+  <label for="name">Track Name:</label>
+  <input id="name" type="text" name="track[name]" value="<%= track ? track.name : '' %>"><br>
+
+  <label for="album">Album:</label>
+  <select id="album" name="track[album_id]">
+    <option disabled <%= method == :patch ? '' : 'selected' %>>-- Please Select --</option>
+    <% album.sibling_albums.each do |album| %>
+      <option value="<%= album.id %>"
+        <%= track.album_id == album.id ? 'selected' : '' %> >
+        <%= album.name %>
+      </option>
+    <% end %>
+  </select><br>
+
+  <input
+    type="radio"
+    name="track[kind]"
+    value="regular"
+    id="regular"
+    <%= 'checked' if track.kind.nil? || track.kind == "regular" %>>
+  <label for="regular">Regular Track</label>
+  <input
+    type="radio"
+    name="track[kind]"
+    value="bonus"
+    id="bonus"
+    <%='checked' if track.kind == "bonus" %>>
+  <label for="bonus">Bonus Track</label><br>
+
+  <textarea name="track[lyrics]"><%= track.lyrics ? track.lyrics : '' %></textarea>
+
+  <input type="submit" value="Submit">
+</form>

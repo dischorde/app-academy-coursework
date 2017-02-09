@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<<<<<<< HEAD
+  <title>Cats99</title>
+=======
+  <title>GoalApp</title>
+>>>>>>> goal/master
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<<<<<<< HEAD
+
+<%= yield %>
+
+<br>
+<%= link_to 'All Cats', cats_url %>
+=======
+<%if logged_in? %>
+  <%= current_user.username  %>
+  <%= button_to 'Log Out', session_url, method: :delete %>
+<% else %>
+  <%= button_to 'Log In', new_session_url, method: :get %>
+<% end %>
+
+<%= yield %>
+
+>>>>>>> goal/master
+</body>
+</html>

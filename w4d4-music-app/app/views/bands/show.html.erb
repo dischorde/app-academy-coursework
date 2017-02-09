@@ -1,0 +1,14 @@
+<h1><%= @band.name %></h1>
+
+<ul>
+  <% @band.albums.each do |album| %>
+  <li><%= link_to album.name, album_url(album) %></li>
+  <% end %>
+</ul>
+
+<% content_for :footer do %>
+<%= button_to "Edit Band", edit_band_url(@band), method: :get %><%= button_to "Delete Band", band_url(@band), method: :delete %>
+<br><br>
+<%= link_to "Add Album", new_band_album_url(@band) %><br>
+<%= link_to "Back to Bands", bands_url %>
+<% end %>

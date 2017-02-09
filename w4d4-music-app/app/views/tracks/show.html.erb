@@ -1,0 +1,20 @@
+<h1><%= @track.name %></h1>
+<h5><%= @track.kind %> track<h5>
+
+<h3>Lyrics</h3>
+<%= ugly_lyrics(@track.lyrics) %>
+
+  <h3>Notes</h3>
+  <%= render "notes/note", notes: @track.notes %>
+<br>
+
+<h3>New Note</h3>
+  <%= render "notes/form", track: @track %>
+  <br>
+
+<% content_for :footer do %>
+<%= button_to "Edit track", edit_track_url(@track), method: :get %>
+<%= button_to "Delete track", track_url(@track), method: :delete %>
+<br><br>
+<%= link_to "Back to Album", album_url(@track.album_id) %>
+<% end %>
