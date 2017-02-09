@@ -1,0 +1,50 @@
+.react {
+  list-style-type: disc;
+}
+
+.react li {
+  margin-top: 8px;
+}
+
+.comments-link {
+  margin-top: 8px;
+  display: block;
+  color: $light-blue;
+  font-family: $sans-serif;
+  font-size: 9px;
+}
+
+iframe {
+  width: 100%;
+}
+
+.video-caption {
+  display: block;
+  margin: 10px 0 5px 0px;
+}
+
+.opinion {
+  text-align: center;
+}
+
+.bold-dot-list {
+  padding: 10px;
+  font-weight: bold;
+  list-style-type: disc;
+  font-size: 10px;
+}
+
+.bold-dot-list li {
+  padding-bottom: 4px;
+}
+
+.thumbnail {
+  height: 150px;
+  padding-top: 8px;
+}
+
+.thumbnail img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}

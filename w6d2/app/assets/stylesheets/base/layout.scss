@@ -1,0 +1,117 @@
+/* Define application-wide selectors here!*/
+
+html {
+	position: relative;
+	height: 100%;
+}
+
+body {
+	// ...
+	width: 80%;
+	margin: 0 auto;
+	font-family: $serif;
+	font-size: 12px;
+
+}
+
+button {
+	background-color: $light-blue;
+	border-color: $blue;
+	color: white;
+	font-weight: bold;
+	padding: 8px;
+	border-radius: 3px;
+	transition: 1s;
+	font-family: $sans-serif;
+	text-transform: uppercase;
+	font-size: 12px;
+	text-align: center;
+}
+
+button:hover {
+	background-color: $darkest-blue;
+	// border-color:
+}
+
+
+
+.hidden {
+	display: none;
+}
+/*
+	Header Rules
+*/
+
+h1 {
+  font-size: 22px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+h2 {
+	font-weight: bold;
+	font-size: 12px;
+	margin: 4px 0;
+}
+
+h3 {
+	color: $gray;
+	font-family: $serif;
+	font-size: 10px;
+	font-weight: normal;
+	margin-top: 3px;
+}
+
+h4 {
+	text-transform: uppercase;
+	font-size: 9px;
+}
+
+hr {
+	border: 0;
+	height: 1px;
+	background-color: $light-gray;
+}
+
+
+.hr-top, .hr-bottom {
+	width: 100%;
+	margin: 0;
+}
+
+.hr-top {
+	height: 2px;
+	margin-bottom: 1px;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+p {
+	margin: 5px 0 5px 0;
+}
+
+.email-sign-up {
+	margin: 8px;
+}
+
+input {
+	width: 80%;
+	padding: 8px;
+  color: #a6a6a6;
+  border: 1px solid $light-blue;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	font-family: $sans-serif;
+  line-height: 1;
+}
+
+#submit-button {
+	background-color: $blue;
+}
+
+small {
+	font-size: 10px;
+	color: $gray;
+}
