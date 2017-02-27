@@ -1,6 +1,6 @@
 class BinaryMaxHeap
   def initialize(&prc)
-    prc ||= Proc.new { |el1, el2| el1 <=> el2 }
+    prc ||= self.class.default_prc
 
     @store = []
     @prc = prc
@@ -12,10 +12,8 @@ class BinaryMaxHeap
 
   def extract
     raise "heap is empty" if @store.empty?
-    @store[0], @store[count - 1] = @store[count - 1], @store[0]
-    extracted = @store.pop
-    sift_down(0)
-    extracted
+    self.class.extract(@store, count, @prc)
+    @store.pop
   end
 
   def peek
@@ -24,47 +22,54 @@ class BinaryMaxHeap
 
   def push(val)
     @store << val
-    sift_up(count - 1)
+    self.class.sift_up(@store, count - 1, @prc)
   end
 
-  private
+  def self.extract(arr, length, prc = default_prc)
+    arr[0], arr[length - 1] = arr[length - 1], arr[0]
+    sift_down(arr, 0, length - 1, prc)
+  end
 
-  def sift_up(current)
-    return @store if current == 0
+  def self.sift_up(arr, current, prc = default_prc)
+    return arr if current == 0
     parent = parent_index(current)
-    if @prc.call(@store[current], @store[parent]) == 1
-      @store[current], @store[parent] = @store[parent], @store[current]
-      sift_up(parent)
+    if prc.call(arr[current], arr[parent]) == 1
+      arr[current], arr[parent] = arr[parent], arr[current]
+      sift_up(arr, parent, prc)
     end
-    @store
+    arr
   end
 
-  def sift_down(current)
-    children = child_indices(current) || []
-    return @store if children.empty?
+  def self.sift_down(arr, current, len, prc = default_prc)
+    children = child_indices(current, len) || []
+    return arr if children.empty?
     larger_idx = children[0]
 
-    if children[1] && @prc.call(@store[children[1]], @store[children[0]]) == 1
+    if children[1] && prc.call(arr[children[1]], arr[children[0]]) == 1
       larger_idx = children[1]
     end
 
-    if @prc.call(@store[larger_idx], @store[current]) == 1
-      @store[current], @store[larger_idx] = @store[larger_idx], @store[current]
-      sift_down(larger_idx)
+    if prc.call(arr[larger_idx], arr[current]) == 1
+      arr[current], arr[larger_idx] = arr[larger_idx], arr[current]
+      sift_down(arr, larger_idx, len, prc)
     end
 
-    @store
+    arr
   end
 
-  def child_indices(idx)
+  def self.child_indices(idx, len)
     left = (idx * 2) + 1
     right = (idx * 2) + 2
 
-    [left, right].select { |index| index < count }
+    [left, right].select { |index| index < len }
   end
 
-  def parent_index(idx)
+  def self.parent_index(idx)
     raise "root has no parent" if idx == 0
     (idx - 1) / 2
+  end
+
+  def self.default_prc
+    Proc.new { |el1, el2| el1 <=> el2 }
   end
 end

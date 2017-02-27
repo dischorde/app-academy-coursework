@@ -1,7 +1,8 @@
 require_relative "heap"
+require_relative "max_heap"
 
 class Array
-  def heap_sort!
+  def min_heap_sort!
     (2..self.length).each do |length|
       BinaryMinHeap.heapify_up(self, length - 1, length)
     end
@@ -12,5 +13,16 @@ class Array
     end
 
     self.reverse!
+  end
+
+  def heap_sort!
+    mid = length / 2
+    mid.downto(0) do |idx|
+      BinaryMaxHeap.sift_down(self, idx, self.length)
+    end
+
+    self.length.downto(1) do |len|
+      BinaryMaxHeap.extract(self, len)
+    end
   end
 end
