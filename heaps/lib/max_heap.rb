@@ -1,5 +1,7 @@
 class BinaryMaxHeap
   def initialize(&prc)
+    prc ||= Proc.new { |el1, el2| el1 <=> el2 }
+
     @store = []
     @prc = prc
   end
@@ -30,7 +32,7 @@ class BinaryMaxHeap
   def sift_up(current)
     return @store if current == 0
     parent = parent_index(current)
-    if @store[current] > @store[parent]
+    if @prc.call(@store[current], @store[parent]) == 1
       @store[current], @store[parent] = @store[parent], @store[current]
       sift_up(parent)
     end
@@ -42,11 +44,11 @@ class BinaryMaxHeap
     return @store if children.empty?
     larger_idx = children[0]
 
-    if children[1] && @store[children[1]] > @store[children[0]]
+    if children[1] && @prc.call(@store[children[1]], @store[children[0]]) == 1
       larger_idx = children[1]
     end
 
-    if @store[current] < @store[larger_idx]
+    if @prc.call(@store[larger_idx], @store[current]) == 1
       @store[current], @store[larger_idx] = @store[larger_idx], @store[current]
       sift_down(larger_idx)
     end
