@@ -6,6 +6,7 @@
 class DPProblems
   def initialize
     @fibs_cache = { 1 => 1, 2 => 1 }
+    @knapsack_cache = {}
     # Use this to create any instance variables you may need
   end
 
@@ -32,7 +33,7 @@ class DPProblems
     # set num coins to 1 for current coin plus change for the remaining amount
     # set ans to num coins unless num_coins is bigger than current (valid) ans
   # return and cache the ans if it is an Integer, otherwise set to infinity
-  
+
   def make_change(amt, coins, coin_cache = { 0 => 0 })
     return coin_cache[amt] if coin_cache[amt]
     return 0.0 / 0.0 if amt < coins[0]
@@ -53,6 +54,18 @@ class DPProblems
   # to include are items 0 and 1, whose values are 10 and 4 respectively.  Duplicates are not allowed -- that is, you
   # can only include a particular item once.
   def knapsack(weights, values, capacity)
+    situation = [weights.length, capacity]
+    return @knapsack_cache[situation] if @knapsack_cache.key?([situation])
+    if weights.empty? || capacity == 0
+      0
+    elsif weights[0] > capacity
+      knapsack(weights[1..-1], values[1..-1], capacity)
+    else
+      with_item = knapsack(weights[1..-1], values[1..-1], capacity - weights[0])
+      without_item = knapsack(weights[1..-1], values[1..-1], capacity)
+      result = [with_item + values[0], without_item].max
+      @knapsack_cache[situation] = result
+    end
   end
 
   # Stair Climber: a frog climbs a set of stairs.  It can jump 1 step, 2 steps, or 3 steps at a time.
