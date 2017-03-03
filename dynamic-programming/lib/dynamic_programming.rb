@@ -7,6 +7,7 @@ class DPProblems
   def initialize
     @fibs_cache = { 1 => 1, 2 => 1 }
     @knapsack_cache = {}
+    @str_cache = Hash.new { |h, k| h[k] = {} }
     # Use this to create any instance variables you may need
   end
 
@@ -99,6 +100,24 @@ class DPProblems
   # str2.  Allowed operations are deleting a character ("abc" -> "ac", e.g.), inserting a character ("abc" -> "abac", e.g.),
   # and changing a single character into another ("abc" -> "abz", e.g.).
   def str_distance(str1, str2)
+    return @str_cache[str1][str2] if @str_cache[str1][str2]
+    return str1.length if str2.nil?
+    return str2.length if str1.nil?
+
+    if str1 == str2
+      @str_cache[str1][str2] = 0
+      return 0
+    end
+
+    if str1[0] == str2[0]
+      @str_cache[str1][str2] = str_distance(str1[1..-1], str2[1..-1])
+    else
+      replace_dist = 1 + str_distance(str1[1..-1], str2[1..-1])
+      delete_dist = 1 + str_distance(str1[1..-1], str2)
+      insert_dist = 1 + str_distance(str1, str2[1..-1])
+      @str_cache[str1][str2] = [replace_dist, delete_dist, insert_dist].min
+    end
+    @str_cache[str1][str2]
   end
 
   # Maze Traversal: write a function that takes in a maze (represented as a 2D matrix) and a starting
