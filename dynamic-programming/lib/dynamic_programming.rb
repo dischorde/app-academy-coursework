@@ -1,3 +1,5 @@
+require 'set'
+
 # Dynamic Programming practice
 # NB: you can, if you want, define helper functions to create the necessary caches as instance variables in the constructor.
 # You may find it helpful to delegate the dynamic programming work itself to a helper method so that you can
@@ -8,6 +10,8 @@ class DPProblems
     @fibs_cache = { 1 => 1, 2 => 1 }
     @knapsack_cache = {}
     @str_cache = Hash.new { |h, k| h[k] = {} }
+    @maze_cache = {}
+    @maze_cache[:seen] = Set.new
     # Use this to create any instance variables you may need
   end
 
@@ -128,5 +132,44 @@ class DPProblems
   #             ['x', 'x', ' ', 'x']]
   # and the start is [1, 1], then the shortest escape route is [[1, 1], [1, 2], [2, 2]] and thus your function should return 3.
   def maze_escape(maze, start)
+    distance = calculate_escape(maze, start)
+    @maze_cache = {} # reset cache
+    @maze_cache[:seen] = Set.new
+    distance
   end
+
+  def calculate_escape(maze, start)
+    return @maze_cache[start] if @maze_cache[start]
+    @maze_cache[:seen] << start
+
+    if on_edge?(maze, start)
+      @maze_cache[start] = 1
+      return 1
+    end
+
+    x, y = start
+    all_moves = [[x, y + 1], [x, y - 1], [x - 1, y], [x + 1, y]]
+    possible_moves = all_moves.select do |pos|
+      maze[pos[0]][pos[1]] == ' ' && !@maze_cache[:seen].include?(pos)
+    end
+
+    minimum = nil
+
+    possible_moves.each do |move|
+      if on_edge?(maze, move)
+        @maze_cache[start] = 2
+        return 2
+      end
+      dist = calculate_escape(maze, move)
+      minimum = dist if minimum.nil? || (dist && dist < minimum)
+    end
+
+    @maze_cache[start] = (minimum.nil? ? nil : 1 + minimum)
+  end
+
+  def on_edge?(maze, space)
+    (space[0] == 0 || space[1] == 0) ||
+      (space[0] == maze.length - 1 || space[1] == maze[0].length - 1)
+  end
+
 end
